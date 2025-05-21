@@ -7,12 +7,20 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+          // Custom breakpoints for responsive utilities
+          screens: {
+            'sm': '354px',
+            'md': '550px',
+            'lg': '700px',
+            'xl': '750px',
+            '2xl': '800px',
+          },
           // change in some style of tailwind 
           container: {
             center: true, // Center the container
             padding: '1rem', // Default padding for all screens
             screens: {
-              sm: '600px', // Full width on small screens
+              sm: '354px', // Full width on small screens
               md: '550px', // Custom width on medium screens
               lg: '700px', // Custom width on large screens
               xl: '750px', // Custom width on extra-large screens
@@ -22,8 +30,10 @@ export default {
     extend: {
       colors: {
         mColor:"#F5F4F4",
-        sColor:"#CE3533",
+        sColor:"#4E71FF",
+        tColor:"#8DD8FF"
       },
+
     },
   },
   plugins: [],
