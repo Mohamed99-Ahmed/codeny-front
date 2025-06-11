@@ -1,9 +1,13 @@
 import React from 'react'
 import CardComponent from '../CardComponent/CardComponent'
+import { courseType } from '@/types/course'
 
-export default function SingleCourse() {
+interface propsType {
+  course: courseType
+}
+export default function SingleCourse({course}:propsType) {
   return (
-               <CardComponent title="javaScript" imageCover="" category="frontend" lang="عربي" paid="مدفوع" description="lkajksdlfjlkjasdf" link="https://" />
+               <CardComponent title={course.name} imageShape='Rectangle' imageCover={course.imageCover} category={course.category} lang={course.language} paid={course.payed} description={course.description} link={course.link} />
    
   )
 }

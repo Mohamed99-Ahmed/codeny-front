@@ -5,7 +5,7 @@ import * as yup from "yup";
 import Button from "@/components/Button/Button";
 import Link from "next/link";
 import { Kufam } from "next/font/google";
-import { authContext } from "@/context/AuthContext/AuthContext";
+import { authContext } from "@/app/api/AuthContext/AuthContext";
 const passReg =
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
 const kufam = Kufam({
@@ -14,7 +14,7 @@ const kufam = Kufam({
 });
 export default function Login() {
   // const navigate = useRouter();
-  const {resetPassword} = useContext(authContext);
+  const { resetPassword } = useContext(authContext);
   // vlaidation by yup
   const validationSchema = yup.object({
     password: yup
@@ -32,7 +32,6 @@ export default function Login() {
         "كلمة المرور غير متطابقة مع اعادة كلمة المرور"
       ),
   });
-
 
   // formik
   const formik = useFormik({

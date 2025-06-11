@@ -1,13 +1,12 @@
 "use client";
 import { useFormik } from "formik";
-import React, { useContext  } from "react";
+import React, { useContext } from "react";
 import * as yup from "yup";
 import Button from "@/components/Button/Button";
 import Link from "next/link";
 import { Kufam } from "next/font/google";
 
-import { authContext } from "@/context/AuthContext/AuthContext";
-
+import { authContext } from "@/app/api/AuthContext/AuthContext";
 
 const kufam = Kufam({
   subsets: ["arabic"],
@@ -15,8 +14,8 @@ const kufam = Kufam({
 });
 
 export default function Login() {
-  const {forgetPassword} = useContext(authContext);
-  
+  const { forgetPassword } = useContext(authContext);
+
   //   run: false,
   //   url: "https://backend-three-nu-89.vercel.app/users/forgetPassword",
   //   method: "POST",
@@ -35,7 +34,7 @@ export default function Login() {
       email: "",
     },
     onSubmit: async (values) => {
-      forgetPassword(values)
+      forgetPassword(values);
     },
     validationSchema,
   });

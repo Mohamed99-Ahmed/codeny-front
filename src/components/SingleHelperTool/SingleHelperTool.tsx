@@ -1,12 +1,15 @@
 import React from 'react'
 import CardComponent from '../CardComponent/CardComponent'
+import { helperToolType } from '@/types/helperTool'
 
-export default function SingleHelperTool() {
+interface propsType {
+  tool:helperToolType
+}
+export default function SingleHelperTool({tool}:propsType) {
   return (
     <>
-            <CardComponent title="htmlSnippest" imageCover="" category="frontend" description="lkajksdlfjlkjasdf" link="https://" />
+            <CardComponent title={tool.name} imageCover="" category={tool.category} description={tool.description} link={tool.link} />
         
-    
     </>
   )
 }

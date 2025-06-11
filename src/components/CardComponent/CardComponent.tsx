@@ -14,8 +14,9 @@ interface propsType {
   link: string;
   imageCover: string;
   lang?: string;
-  paid?: string;
+  paid?: boolean;
   favoritePage?: boolean;
+  imageShape?: "Rectangle" | "circle";
 }
 export default function CardComponent({
   title,
@@ -26,37 +27,54 @@ export default function CardComponent({
   link,
   imageCover,
   favoritePage,
+  imageShape = "circle",
 }: propsType) {
   const [addToFav, setAddToFav] = useState<boolean>(false);
-  
+
   return (
-    <div className="bg-white relative hover:border-sColor hover:border overflow-hidden rounded-lg shadow-md  flex flex-col  items-center gap-4 md:gap-8 w-full max-w-2xl mx-auto">
+    <div className="bg-white relative hover:border-sColor hover:border overflow-hidden rounded-lg shadow-md  flex justify-between flex-col  items-center gap-4 md:gap-8 w-full max-w-2xl mx-auto">
       <div className="buttons text-xl  cursor-pointer  font-semibold absolute top-4 left-4">
- {!favoritePage ? <RiHeartAdd2Fill
-        onClick={() => {
-          setAddToFav((prev) => !prev);
-          console.log(addToFav);
-        }}
-        className={` hover:text-sColor 
+        {!favoritePage ? (
+          <RiHeartAdd2Fill
+            onClick={() => {
+              setAddToFav((prev) => !prev);
+              console.log(addToFav);
+            }}
+            className={` hover:text-sColor text-[2rem]
                   ${
                     addToFav
-                      ? "text-sColor font-bold text-[2rem] "
+                      ? "text-sColor font-bold text-[2.2rem] "
                       : "text-gray-400"
                   } `}
-      />: <MdOutlineDeleteForever className="text-red-500 text-2xl font-bold" />}
+          />
+        ) : (
+          <MdOutlineDeleteForever className="text-red-500 text-2xl font-bold" />
+        )}
       </div>
       <a
-        href={link}
-        target="_blank"
+        // href={link}
+        // target="_blank"
+        rel="noopener noreferrer"
         className="flex-shrink-0 flex items-center justify-center"
       >
-        <figure className="w-20 h-20 md:w-24 p-4 md:p-6 md:h-24 flex items-center justify-center">
+        {" "}
+        <figure
+          className={`${
+            imageShape !== "Rectangle"
+              ? "w-40 h-40 md:w-50 p-4 md:p-6 md:h-50 flex items-center justify-center"
+              : "w-full"
+          }`}
+        >
           <Image
             alt="model logo"
-            src={imageCover || modelLogo.src}
-            className="rounded-full border border-gray-200"
-            width={96}
-            height={96}
+            src={imageCover?.trim() || modelLogo.src}
+            className={`${
+              imageShape == "Rectangle"
+                ? "h-[200px] object-cover"
+                : "rounded-full border border-gray-200"
+            }`}
+            width={imageShape === "Rectangle" ? 1920 : 100}
+            height={imageShape === "Rectangle" ? 200 : 100}
             priority
           />
         </figure>
@@ -87,7 +105,12 @@ export default function CardComponent({
         </p>
       </main>
       <footer className=" self-stretch">
-        <a href={link} className="bg-sColor text-center text-white py-3 rounded-b-md block w-full">
+        <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-sColor text-center text-white py-3 rounded-b-md block w-full"
+        >
           {" "}
           الذهاب الي الرابط
         </a>

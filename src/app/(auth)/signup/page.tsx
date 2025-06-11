@@ -6,8 +6,8 @@ import { FaPhoneAlt } from "react-icons/fa";
 import Button from "@/components/Button/Button";
 import Link from "next/link";
 import { Kufam } from "next/font/google";
-import { submitType } from "../../../types/auth";;
-import { authContext } from "@/context/AuthContext/AuthContext";
+import { submitType } from "../../../types/auth";
+import { authContext } from "@/app/api/AuthContext/AuthContext";
 
 const phoneReg = /^(2)01[0125][0-9]{8}$/gm;
 const passReg =
@@ -18,7 +18,7 @@ const kufam = Kufam({
 });
 
 export default function SignUp() {
-  const {signUp} = useContext(authContext);
+  const { signUp } = useContext(authContext);
   //   run: false,
   //   url: "https://backend-three-nu-89.vercel.app/users/signup",
   //   method: "POST",
@@ -27,9 +27,7 @@ export default function SignUp() {
   // });
   // submit funciton
   async function submitFunc(values: submitType) {
-
-    signUp(values)
-    
+    signUp(values);
   }
   // validate by Yup
   const validate = yup.object({
@@ -254,7 +252,7 @@ export default function SignUp() {
             />
             <p className="text-lg">او</p>
             <Link href="/login" className={`underline hover:text-sColor`}>
-             تسجيل الدخول
+              تسجيل الدخول
             </Link>
           </div>
         </form>

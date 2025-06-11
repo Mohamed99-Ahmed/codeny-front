@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Kufam } from "next/font/google";
 
 import { loginType } from "../../../types/auth";
-import { authContext } from "@/context/AuthContext/AuthContext";
+import { authContext } from "@/app/api/AuthContext/AuthContext";
 const passReg =
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
 const kufam = Kufam({
@@ -32,9 +32,9 @@ export default function Login() {
   });
   // submit funciton
   async function login(values: loginType) {
-    logIn(values) 
+    logIn(values);
   }
-  // formik 
+  // formik
   const formik = useFormik({
     initialValues: {
       email: "",

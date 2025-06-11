@@ -7,7 +7,7 @@ import { productType } from "../../types/category.type";
 import { BiDish } from "react-icons/bi";
 import { CartContex } from "@/context/cartContext/cartContext";
 import SizeAndCoice from "../SizeAndChoice/SizeAndCoice";
-import { authContext } from "@/context/AuthContext/AuthContext";
+import { authContext } from "@/app/api/AuthContext/AuthContext";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import imageDefault from "../../../public/imgs/relativeImg.svg";
@@ -42,11 +42,13 @@ export default function ProductItem({ product }: propsType) {
           quantity: newQuantity,
         });
         return;
-      }else{addProductToCart({
-        productId: product._id,
-        choice,
-        quantity: newQuantity,
-      });}
+      } else {
+        addProductToCart({
+          productId: product._id,
+          choice,
+          quantity: newQuantity,
+        });
+      }
     }
   }
   const handleImageCover = function () {
@@ -154,20 +156,19 @@ export default function ProductItem({ product }: propsType) {
                 } `}
                 onClick={() => {
                   if (token) {
-                    if(typeof product.price === "object"){
+                    if (typeof product.price === "object") {
                       if (size && choice) {
                         handleAddToCart("incr");
                       } else {
                         toast.error("من فضلك اختار الحجم و الاختيار");
                       }
-                    }else{
+                    } else {
                       if (choice) {
                         handleAddToCart("incr");
                       } else {
                         toast.error("من فضلك اختار الحجم ");
                       }
                     }
-                 
                   } else {
                     router.push("/login");
                   }

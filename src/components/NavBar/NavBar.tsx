@@ -5,7 +5,7 @@ import { HiMiniBars3BottomLeft } from "react-icons/hi2";
 import { CiLogout } from "react-icons/ci";
 import { Fustat } from "next/font/google";
 import { usePathname, useRouter } from "next/navigation";
-import { authContext } from "@/context/AuthContext/AuthContext";
+import { authContext } from "@/app/api/AuthContext/AuthContext";
 import { CiLogin } from "react-icons/ci";
 import { ImHeartBroken } from "react-icons/im";
 import UserBox from "../UserBox/UserBox";
@@ -21,7 +21,6 @@ export default function NavBar() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(true);
   const { token, logOut, payload } = useContext(authContext);
-
 
   function toggleNav() {
     setIsOpen((prev) => !prev);
@@ -41,7 +40,11 @@ export default function NavBar() {
         className={`fixed   whitespace-nowrap  top-0 left-0 right-0 shadow-bottom bg-white  z-40 border-b border-gray-200`}
       >
         {/* start user box */}
-        <UserBox name="mohamed" photo={human.src} headLine="frontend developer"/>
+        <UserBox
+          name="mohamed"
+          photo={human.src}
+          headLine="frontend developer"
+        />
         {/* start filteration */}
         <AsideFilteration />
         {/* content of nav */}
@@ -58,17 +61,19 @@ export default function NavBar() {
           <div className=" m-0  flex-grow md:flex-grow-0  justify-end mr-auto inline-flex gap-2 sm:self-auto md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             {/* cartshopping toogle   */}
             {/* {token && ( */}
-              <p className="relative">
-                <ImHeartBroken
-                  className={`text-2xl cursor-pointer hover:text-sColor ${path === "/favorites" ? "text-sColor" : "text-gray-400"}`}
-                  onClick={() => {
-                    router.push("/favorites");
-                  }}
-                />
-                {/* <span className="absolute text-white text-[0.8rem] flex  items-end justify-center w-6 h-6 text-center -translate-y-1/2 -translate-x-1/2 top-0 left-0 bg-sColor rounded-full">
+            <p className="relative">
+              <ImHeartBroken
+                className={`text-2xl cursor-pointer hover:text-sColor ${
+                  path === "/favorites" ? "text-sColor" : "text-gray-400"
+                }`}
+                onClick={() => {
+                  router.push("/favorites");
+                }}
+              />
+              {/* <span className="absolute text-white text-[0.8rem] flex  items-end justify-center w-6 h-6 text-center -translate-y-1/2 -translate-x-1/2 top-0 left-0 bg-sColor rounded-full">
                   {true?.items.length || 0}
                 </span> */}
-              </p>
+            </p>
             {/* )} */}
             {/* handle log */}
             <a className=" flex gap-3 items-center cursor-pointer">
