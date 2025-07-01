@@ -5,7 +5,7 @@ import * as yup from "yup";
 import Button from "@/components/Button/Button";
 import Link from "next/link";
 import { Kufam } from "next/font/google";
-import { authContext } from "@/app/api/AuthContext/AuthContext";
+import { authContext } from "@/api/AuthContext/AuthContext";
 const passReg =
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
 const kufam = Kufam({

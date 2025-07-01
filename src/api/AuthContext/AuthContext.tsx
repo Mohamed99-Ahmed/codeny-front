@@ -3,31 +3,37 @@ import React, { createContext, ReactNode, useState } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
-import { forgetPasswordType, loginType, payload, resetPasswordType, submitType } from "@/types/auth";
+import {
+  forgetPasswordType,
+  loginType,
+  payload,
+  resetPasswordType,
+  submitType,
+} from "@/types/auth";
 import axios from "axios";
 import toast from "react-hot-toast";
 
 // Auth Context Type
 interface AuthContextType {
   token: string | undefined;
-  payload: payload | null;
+  payload: payload | "";
   logOut: () => void;
-  signUp: (bodyData:submitType) => Promise<void>;
-  logIn: (bodyData:loginType) => Promise<void>;
-  forgetPassword: (bodyData:forgetPasswordType) => Promise<void>;
-  putTokenCookie: (token:string) => void;
-  resetPassword: (bodyData:resetPasswordType) => void;
+  signUp: (bodyData: submitType) => Promise<void>;
+  logIn: (bodyData: loginType) => Promise<void>;
+  forgetPassword: (bodyData: forgetPasswordType) => Promise<void>;
+  putTokenCookie: (token: string) => void;
+  resetPassword: (bodyData: resetPasswordType) => void;
 }
 
 export const authContext = createContext<AuthContextType>({
   token: undefined,
-  payload: null ,
+  payload: "",
   logOut: () => {},
   putTokenCookie: () => {},
-  signUp:  async () => {},
-  logIn:  async () => {},
-  forgetPassword:  async () => {},
-  resetPassword:  async () => {},
+  signUp: async () => {},
+  logIn: async () => {},
+  forgetPassword: async () => {},
+  resetPassword: async () => {},
 });
 
 const BaseUrl = "https://codeny-backend.vercel.app";
@@ -36,7 +42,7 @@ const BaseUrl = "https://codeny-backend.vercel.app";
 export default function AuthContext({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [token, setToken] = useState<string | undefined>(Cookies.get("token"));
-  let payload:payload | null = null;
+  let payload: payload | "" = "";
   if (token) {
     payload = jwtDecode(token);
   }
@@ -51,10 +57,9 @@ export default function AuthContext({ children }: { children: ReactNode }) {
     setToken("");
     router.push("/login");
   }
-  
-  
-   // signUp function
-   async function signUp(bodyData:submitType) {
+
+  // signUp function
+  async function signUp(bodyData: submitType) {
     const loadingToast = toast.loading("جاري انشاء حساب");
     try {
       const options = {
@@ -63,7 +68,7 @@ export default function AuthContext({ children }: { children: ReactNode }) {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        data : bodyData,
+        data: bodyData,
       };
       const { data } = await axios.request(options);
       if (data.status === "success") {
@@ -83,7 +88,7 @@ export default function AuthContext({ children }: { children: ReactNode }) {
     }
   }
   // logikn function
-  async function logIn(bodyData:loginType) {
+  async function logIn(bodyData: loginType) {
     const loadingToast = toast.loading("جاري تسجيل الدخول");
     try {
       const options = {
@@ -92,7 +97,7 @@ export default function AuthContext({ children }: { children: ReactNode }) {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        data : bodyData,
+        data: bodyData,
       };
       const { data } = await axios.request(options);
       if (data.status === "success") {
@@ -113,8 +118,8 @@ export default function AuthContext({ children }: { children: ReactNode }) {
     }
   }
   // forgetPassword function
-   // logikn function
-   async function forgetPassword(bodyData:forgetPasswordType) {
+  // logikn function
+  async function forgetPassword(bodyData: forgetPasswordType) {
     const loadingToast = toast.loading("جاري تحميل بيناتك");
     try {
       const options = {
@@ -123,7 +128,7 @@ export default function AuthContext({ children }: { children: ReactNode }) {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        data : bodyData,
+        data: bodyData,
       };
       const { data } = await axios.request(options);
       if (data.status === "success") {
@@ -144,7 +149,7 @@ export default function AuthContext({ children }: { children: ReactNode }) {
     }
   }
   // resetPassword function
-  async function resetPassword(bodyData:resetPasswordType) {
+  async function resetPassword(bodyData: resetPasswordType) {
     const loadingToast = toast.loading("جاري اعادة تغيير كلمة المرور");
     try {
       const options = {
@@ -153,7 +158,7 @@ export default function AuthContext({ children }: { children: ReactNode }) {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        data : bodyData,
+        data: bodyData,
       };
       const { data } = await axios.request(options);
       if (data.status === "success") {
@@ -163,7 +168,6 @@ export default function AuthContext({ children }: { children: ReactNode }) {
         router.push("./login");
       }
     } catch (err) {
-
       toast.dismiss(loadingToast);
       let errorMessage = "حدث خطأ غير متوقع";
 
@@ -177,7 +181,16 @@ export default function AuthContext({ children }: { children: ReactNode }) {
 
   return (
     <authContext.Provider
-      value={{ putTokenCookie,signUp, logOut, logIn,forgetPassword,resetPassword, token, payload }}
+      value={{
+        putTokenCookie,
+        signUp,
+        logOut,
+        logIn,
+        forgetPassword,
+        resetPassword,
+        token,
+        payload,
+      }}
     >
       {children}
     </authContext.Provider>

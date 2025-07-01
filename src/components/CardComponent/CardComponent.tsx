@@ -1,11 +1,12 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
 import { useState } from "react";
 import Button from "../Button/Button";
 import modelLogo from "../../public/imgs/wuzzuf-logo.png";
 import { RiHeartAdd2Fill } from "react-icons/ri";
 import { MdOutlineDeleteForever } from "react-icons/md";
+import { favoriteContext } from "@/api/FavoriteContext/favorites.api";
 
 interface propsType {
   title: string;
@@ -17,8 +18,15 @@ interface propsType {
   paid?: boolean;
   favoritePage?: boolean;
   imageShape?: "Rectangle" | "circle";
+  id: string;
+  typeModel?: string;
+  hasFav?: boolean; // Indicates if the card is already favorited
+  idFav?: string; // Optional prop for favorite ID, used in some contexts
 }
 export default function CardComponent({
+  id,
+  typeModel,
+  hasFav,
   title,
   lang,
   paid,
@@ -26,29 +34,59 @@ export default function CardComponent({
   description,
   link,
   imageCover,
-  favoritePage,
+  favoritePage = true,
   imageShape = "circle",
+  idFav,
 }: propsType) {
-  const [addToFav, setAddToFav] = useState<boolean>(false);
+  const [addToFav, setAddToFav] = useState<boolean | undefined>(hasFav );
+  const { addToFavorites, removeFromFavorites } = useContext(favoriteContext);
+  // if userFavorites is chnge rerender the component
+
+  //  remove from favorite function
+  async function removeFromFavorite() {
+    setAddToFav((prev) => !prev);
+    if(!idFav) return;
+    await removeFromFavorites(idFav);
+  }
+  //  add to favorite function
+  async function addToFavorite() {
+    setAddToFav((prev) => !prev);
+    await addToFavorites({
+      typeModel,
+      typeId: id,
+    });
+  }
+  // handle function of favorite
+  async function handleAddToFav() {
+    if (addToFav && idFav) {
+      await removeFromFavorite();
+    } else {
+      await addToFavorite();
+    }
+  }
 
   return (
     <div className="bg-white relative hover:border-sColor hover:border overflow-hidden rounded-lg shadow-md  flex justify-between flex-col  items-center gap-4 md:gap-8 w-full max-w-2xl mx-auto">
       <div className="buttons text-xl  cursor-pointer  font-semibold absolute top-4 left-4">
-        {!favoritePage ? (
+        {favoritePage ? (
           <RiHeartAdd2Fill
             onClick={() => {
-              setAddToFav((prev) => !prev);
-              console.log(addToFav);
+              handleAddToFav();
             }}
             className={` hover:text-sColor text-[2rem]
                   ${
-                    addToFav
+                    hasFav
                       ? "text-sColor font-bold text-[2.2rem] "
                       : "text-gray-400"
                   } `}
           />
         ) : (
-          <MdOutlineDeleteForever className="text-red-500 text-2xl font-bold" />
+          <MdOutlineDeleteForever
+            className="text-red-500 text-2xl font-bold"
+            onClick={() => {
+              removeFromFavorite();
+            }}
+          />
         )}
       </div>
       <a

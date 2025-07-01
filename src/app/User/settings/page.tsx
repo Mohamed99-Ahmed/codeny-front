@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import React, {  useRef } from 'react'
+import React, {  useContext, useEffect, useRef } from 'react'
 import { FiUploadCloud } from 'react-icons/fi'
 import human  from "../../../public/imgs/Mohamed.jpeg"
 import InputField from '@/components/InputField/inputField'
@@ -9,9 +9,31 @@ import SelectField from '@/components/SelectField/SelectField'
 import {  FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import Button from '@/components/Button/Button'
+import { useQuery } from '@tanstack/react-query'
+import { userContext } from '@/api/userContext/user.api'
+import { authContext } from '@/api/AuthContext/AuthContext'
 export default function UserSetting() {
   const inputFile = useRef<HTMLInputElement>(null);
+  const {getOneUser} = useContext(userContext)
+  const {payload} = useContext(authContext)
+
+  useEffect(()=>{
   
+    (async function call(){
+      console.log(payload.id)
+      const data = await getOneUser(payload && payload.id)
+    
+      console.log(data)
+    })()
+  },[])
+  //   const { data, isLoading, error } = useQuery({
+  //   queryKey: ['users'],
+  //   queryFn: async () => await getOneUser(payload && payload.id),
+  // });
+  // if(data){
+  //   console.log(data)
+  //   return 
+  // }
   // Define the form initial values
   const initialValues = {
     name: '',

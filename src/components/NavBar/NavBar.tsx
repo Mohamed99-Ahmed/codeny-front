@@ -5,7 +5,7 @@ import { HiMiniBars3BottomLeft } from "react-icons/hi2";
 import { CiLogout } from "react-icons/ci";
 import { Fustat } from "next/font/google";
 import { usePathname, useRouter } from "next/navigation";
-import { authContext } from "@/app/api/AuthContext/AuthContext";
+import { authContext } from "@/api/AuthContext/AuthContext";
 import { CiLogin } from "react-icons/ci";
 import { ImHeartBroken } from "react-icons/im";
 import UserBox from "../UserBox/UserBox";

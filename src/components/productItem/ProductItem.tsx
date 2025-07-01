@@ -7,7 +7,7 @@ import { productType } from "../../types/category.type";
 import { BiDish } from "react-icons/bi";
 import { CartContex } from "@/context/cartContext/cartContext";
 import SizeAndCoice from "../SizeAndChoice/SizeAndCoice";
-import { authContext } from "@/app/api/AuthContext/AuthContext";
+import { authContext } from "@/api/AuthContext/AuthContext";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import imageDefault from "../../../public/imgs/relativeImg.svg";

@@ -12,6 +12,7 @@ async function getAll(EndPoint: string) {
       method: "GET",
     };
     const { data } = await axios.request(options);
+    console.log("data", data);
     if (data.status === "success") {
       return data.data.data;
     }

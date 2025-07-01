@@ -1,10 +1,31 @@
 "use client";
 
 import { postType } from "@/types/post";
-import { getAll, getOne, createOne, deleteOne, updateOne } from "../handlerFactoryApi";
+import {
+  getAll,
+  getOne,
+  createOne,
+  deleteOne,
+  updateOne,
+} from "../handlerFactoryApi";
 import { createContext, useContext, useEffect, useState } from "react";
-import { authContext } from "@/app/api/AuthContext/AuthContext";
-export const postContext = createContext({});
+import { authContext } from "@/api/AuthContext/AuthContext";
+interface postContextTyper {
+  getAllPosts: () => Promise<postType[] | null>;
+  posts: postType[] | null;
+  getOnePost: (id: string) => Promise<postType | null>;
+  createPost: (bodyData: object) => Promise<postType | null>;
+  deletOnePost: (id: string) => Promise<void>;
+  updateOnePost: (id: string, bodyData: FormData | JSON) => Promise<postType | null>;
+}
+export const postContext = createContext<postContextTyper>({
+  getAllPosts: async () => null,
+  posts: null,
+  getOnePost: async () => null,
+  createPost: async () => null,
+  deletOnePost: async () => {},
+  updateOnePost: async () => null,
+});
 
 export default function PostsApiContext({
   children,
@@ -61,7 +82,14 @@ export default function PostsApiContext({
 
   return (
     <postContext.Provider
-      value={{ getAllPosts, posts, getOnePost, createPost, deletOnePost, updateOnePost }}
+      value={{
+        getAllPosts,
+        posts,
+        getOnePost,
+        createPost,
+        deletOnePost,
+        updateOnePost,
+      }}
     >
       {children}
     </postContext.Provider>

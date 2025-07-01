@@ -1,6 +1,6 @@
 "use client";
 import ControleAside from "@/components/ControleAside/ControleAside";
-import { authContext } from "@/app/api/AuthContext/AuthContext";
+import { authContext } from "@/api/AuthContext/AuthContext";
 import React, { useContext } from "react";
 
 export default function Layout({
