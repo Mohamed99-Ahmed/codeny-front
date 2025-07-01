@@ -11,7 +11,6 @@ export default function AllPosts() {
   useEffect(() => {
     getAllPosts();
   }, []);
-console.log("favPosts", favPosts);
   if (!posts) {
     return <div className="text-center text-2xl">Loading...</div>;
   }

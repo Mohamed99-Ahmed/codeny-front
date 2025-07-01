@@ -14,8 +14,7 @@ export default function AllHelpertools() {
     getAllHelperTools();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-console.log("helperTools", helperTools);
-console.log("favHerlperTools", favHerlperTools);
+
   return (
     <div className="grid md:grid-cols-2 gap-6">
       {helperTools?.map((tool: helperToolType) => {

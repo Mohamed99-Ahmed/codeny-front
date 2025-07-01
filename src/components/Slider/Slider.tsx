@@ -22,8 +22,6 @@ export default function Slider() {
           }}
           loop={true}
           speed={3000} // Controls scroll speed
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
         >
           <SwiperSlide>
             <Image

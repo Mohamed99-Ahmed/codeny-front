@@ -9,7 +9,6 @@ import SelectField from '@/components/SelectField/SelectField'
 import {  FormikHelpers, useFormik } from 'formik'
 import * as Yup from 'yup'
 import Button from '@/components/Button/Button'
-import { useQuery } from '@tanstack/react-query'
 import { userContext } from '@/api/userContext/user.api'
 import { authContext } from '@/api/AuthContext/AuthContext'
 export default function UserSetting() {
@@ -20,20 +19,11 @@ export default function UserSetting() {
   useEffect(()=>{
   
     (async function call(){
-      console.log(payload.id)
-      const data = await getOneUser(payload && payload.id)
+       await getOneUser(payload && payload.id)
     
-      console.log(data)
     })()
   },[])
-  //   const { data, isLoading, error } = useQuery({
-  //   queryKey: ['users'],
-  //   queryFn: async () => await getOneUser(payload && payload.id),
-  // });
-  // if(data){
-  //   console.log(data)
-  //   return 
-  // }
+
   // Define the form initial values
   const initialValues = {
     name: '',
@@ -75,9 +65,6 @@ export default function UserSetting() {
         formData.append('photo', inputFile.current.files[0]);
       }
       
-      // TODO: Send formData to API
-      console.log('Form data:', values);
-      console.log('Photo:', inputFile.current?.files?.[0]);
       
       // Here you would typically make an API call to update user profile
       // await updateUserProfile(formData);
@@ -93,7 +80,6 @@ export default function UserSetting() {
   const changeProfilePhoto = () => {
     // This function is now just for UI feedback
     // The actual file handling is done in the form submission
-    console.log('Photo selected:', inputFile.current?.files?.[0]?.name);
   };
   // formik
   const formik = useFormik({

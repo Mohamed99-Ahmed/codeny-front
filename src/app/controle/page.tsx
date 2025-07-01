@@ -1,7 +1,6 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
-import ControleCategory from "@/components/ControleCategory/ControleCategory";
-import { CateogryContext } from "@/context/CategoriesContext/Categories.context";
+import React, {  useState } from "react";
+// import { CateogryContext } from "@/context/CategoriesContext/Categories.context";
 import { Kufam } from "next/font/google";
 import Button from "@/components/Button/Button";
 import { useFormik } from "formik";
@@ -13,14 +12,14 @@ const kufam = Kufam({
   weight: ["400", "700"], // Add weights as needed
 });
 export default function ControleProducts() {
-  const { categories, getAllCategories, createCategory } =
-    useContext(CateogryContext);
+  // const { categories, getAllCategories, createCategory } =
+  //   useContext(CateogryContext);
   const [appearNew, setAppearNew] = useState<boolean>(false);
-  useEffect(() => {
-    getAllCategories();
-  }, []);
+  // useEffect(() => {
+  //   getAllCategories();
+  // }, []);
   // rerender of component when categories change
-  useEffect(() => {}, [categories]);
+  // useEffect(() => {}, [categories]);
   // create category function
   const validationSchema = yup.object({
     categoryName: yup
@@ -35,7 +34,7 @@ export default function ControleProducts() {
     },
     validationSchema,
     onSubmit: () => {
-      createCategory(formik.values.categoryName);
+      // createCategory(formik.values.categoryName);
       setAppearNew(false);
       formik.resetForm();
     },
@@ -73,12 +72,7 @@ export default function ControleProducts() {
         </div>
       )}
       {/* category with its products */}
-      {categories &&
-        categories
-          .map((category) => {
-            return <ControleCategory category={category} key={category.id} />;
-          }).reverse()
-          }
+
     </div>
   );
 }
